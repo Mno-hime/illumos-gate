@@ -13,6 +13,7 @@
 # Copyright 2014 Garrett D'Amore <garrett@damore.org>
 # Copyright 2017 Nexenta Systems, Inc.
 # Copyright 2018, Joyent, Inc.
+# Copyright 2019, Michal Nowak
 #
 
 PROG=		mandoc
@@ -39,6 +40,7 @@ OBJS=		att.o		\
 		man_validate.o	\
 		mandoc.o	\
 		mandoc_aux.o	\
+		mandoc_msg.c	\
 		mandoc_ohash.o	\
 		mandoc_xr.o	\
 		mandocdb.o	\

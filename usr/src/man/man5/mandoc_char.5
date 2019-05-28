@@ -1,8 +1,8 @@
-.\"	$Id: mandoc_char.7,v 1.72 2018/08/08 14:30:48 schwarze Exp $
+.\"	$Id: mandoc_char.7,v 1.75 2018/12/15 19:30:26 schwarze Exp $
 .\"
 .\" Copyright (c) 2003 Jason McIntyre <jmc@openbsd.org>
 .\" Copyright (c) 2009, 2010, 2011 Kristaps Dzonsons <kristaps@bsd.lv>
-.\" Copyright (c) 2011, 2013, 2015, 2017 Ingo Schwarze <schwarze@openbsd.org>
+.\" Copyright (c) 2011,2013,2015,2017,2018 Ingo Schwarze <schwarze@openbsd.org>
 .\"
 .\" Permission to use, copy, modify, and distribute this software for any
 .\" purpose with or without fee is hereby granted, provided that the above
@@ -16,21 +16,21 @@
 .\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 .\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 .\"
-.Dd $Mdocdate: August 8 2018 $
-.Dt MANDOC_CHAR 5
+.Dd $Mdocdate: December 15 2018 $
+.Dt MANDOC_CHAR 7
 .Os
 .Sh NAME
 .Nm mandoc_char
 .Nd mandoc special characters
 .Sh DESCRIPTION
 This page documents the
-.Xr mandoc_roff 5
+.Xr roff 7
 escape sequences accepted by
 .Xr mandoc 1
 to represent special characters in
-.Xr mdoc 5
+.Xr mdoc 7
 and
-.Xr man 5
+.Xr man 7
 documents.
 .Pp
 The rendering depends on the
@@ -95,7 +95,7 @@ This is not that \e(em rather, this is that.
 .Ed
 .Pp
 In
-.Xr mandoc_roff 5
+.Xr roff 7
 documents, the minus sign is normally written as
 .Sq \e- .
 In manual pages, some style guides recommend to also use
@@ -128,7 +128,7 @@ macro arguments, other software may not respect these rules and may
 break the line even in such cases.
 .Pp
 Some
-.Xr mandoc_roff 5
+.Xr roff 7
 implementations contains dictionaries allowing to break the line
 at syllable boundaries even inside words that contain no hyphens.
 Such automatic hyphenation is not supported by
@@ -157,7 +157,7 @@ On request and macro lines, the normal space character serves as an
 argument delimiter.
 To include whitespace into arguments, quoting is usually the best choice;
 see the MACRO SYNTAX section in
-.Xr mandoc_roff 5 .
+.Xr roff 7 .
 In some cases, using the non-breaking space escape sequence
 .Pq Sq \e\ \&
 may be preferable.
@@ -167,7 +167,7 @@ of input lines, the zero-width space
 .Pq Sq \e&
 is often useful.
 For example, in
-.Xr mdoc 5 ,
+.Xr mdoc 7 ,
 a normal space character can be displayed in single quotes in either
 of the following ways:
 .Pp
@@ -191,7 +191,7 @@ In output modes supporting such special output characters, for example
 and sometimes less consistently in
 .Fl T Cm utf8 ,
 some
-.Xr mandoc_roff 5
+.Xr roff 7
 formatters convert the following ASCII input characters to the
 following Unicode special output characters:
 .Bl -column x(ga U+2018 -offset indent
@@ -216,9 +216,9 @@ The period
 .Pq Sq \&.
 is handled specially at the beginning of an input line,
 where it introduces a
-.Xr mandoc_roff 5
+.Xr roff 7
 request or a macro, and when appearing alone as a macro argument in
-.Xr mdoc 5 .
+.Xr mdoc 7 .
 In such situations, prepend a zero-width space
 .Pq Sq \e&.
 to make it behave like normal text.
@@ -240,11 +240,11 @@ is not the right way to output a backslash.
 Because
 .Xr mandoc 1
 does not implement full
-.Xr mandoc_roff 5
+.Xr roff 7
 functionality, it may work with
 .Xr mandoc 1 ,
 but it may have weird effects on complete
-.Xr mandoc_roff 5
+.Xr roff 7
 implementations.
 .Sh SPECIAL CHARACTERS
 Special characters are encoded as
@@ -258,7 +258,7 @@ and
 For details, see the
 .Em Special Characters
 subsection of the
-.Xr mandoc_roff 5
+.Xr roff 7
 manual.
 .Pp
 Spacing:
@@ -266,11 +266,13 @@ Spacing:
 .It Em Input Ta Em Description
 .It Sq \e\ \& Ta unpaddable non-breaking space
 .It \e\(ti   Ta paddable non-breaking space
-.It \e0      Ta unpaddable, breaking digit-width space
+.It \e0      Ta digit-width space allowing line break
 .It \e|      Ta one-sixth \e(em narrow space, zero width in nroff mode
 .It \e^      Ta one-twelfth \e(em half-narrow space, zero width in nroff
-.It \e&      Ta zero-width space
+.It \e&      Ta zero-width non-breaking space
+.It \e)      Ta zero-width space transparent to end-of-sentence detection
 .It \e%      Ta zero-width space allowing hyphenation
+.It \e:      Ta zero-width space allowing line break
 .El
 .Pp
 Lines:
@@ -543,11 +545,13 @@ Accented letters:
 .It \e(\(aqI Ta \('I        Ta acute I
 .It \e(\(aqO Ta \('O        Ta acute O
 .It \e(\(aqU Ta \('U        Ta acute U
+.It \e(\(aqY Ta \('Y        Ta acute Y
 .It \e(\(aqa Ta \('a        Ta acute a
 .It \e(\(aqe Ta \('e        Ta acute e
 .It \e(\(aqi Ta \('i        Ta acute i
 .It \e(\(aqo Ta \('o        Ta acute o
 .It \e(\(aqu Ta \('u        Ta acute u
+.It \e(\(aqy Ta \('y        Ta acute y
 .It \e(\(gaA Ta \(`A        Ta grave A
 .It \e(\(gaE Ta \(`E        Ta grave E
 .It \e(\(gaI Ta \(`I        Ta grave I
@@ -708,7 +712,7 @@ and
 For details, see the
 .Em Predefined Strings
 subsection of the
-.Xr mandoc_roff 5
+.Xr roff 7
 manual.
 .Bl -column "Input" "Rendered" "Description" -offset indent
 .It Em Input Ta Em Rendered Ta Em Description
@@ -761,14 +765,16 @@ For backward compatibility with existing manuals,
 .Xr mandoc 1
 also supports the
 .Pp
-.Dl \eN\(aq Ns Ar number Ns \(aq
+.Dl \eN\(aq Ns Ar number Ns \(aq and \e[ Ns Cm char Ns Ar number ]
 .Pp
-escape sequence, inserting the character
+escape sequences, inserting the character
 .Ar number
 from the current character set into the output.
 Of course, this is inherently non-portable and is already marked
-as deprecated in the Heirloom roff manual.
-For example, do not use \eN\(aq34\(aq, use \e(dq, or even the plain
+as deprecated in the Heirloom roff manual;
+on top of that, the second form is a GNU extension.
+For example, do not use \eN\(aq34\(aq or \e[char34], use \e(dq,
+or even the plain
 .Sq \(dq
 character where possible.
 .Sh COMPATIBILITY
@@ -807,9 +813,9 @@ known representation.
 .El
 .Sh SEE ALSO
 .Xr mandoc 1 ,
-.Xr man 5 ,
-.Xr mandoc_roff 5 ,
-.Xr mdoc 5
+.Xr man 7 ,
+.Xr mdoc 7 ,
+.Xr roff 7
 .Sh AUTHORS
 The
 .Nm
@@ -821,7 +827,7 @@ The predefined string
 mimics the behaviour of the
 .Sq \&|
 character in
-.Xr mdoc 5 ;
+.Xr mdoc 7 ;
 thus, if you wish to render a vertical bar with no side effects, use
 the
 .Sq \e(ba
