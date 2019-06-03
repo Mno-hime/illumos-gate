@@ -44,9 +44,12 @@ $(ROOTMAN)/man$(MANSECT)/% : % $(ROOTMAN)/man$(MANSECT)
 # manually when editing (git pbchk will do so for you.)
 #
 $(MANCHECKS):
-		@$(EGREP) -q "^.TH" $(@:%.check=%) || \
-		( $(ECHO) "checking $(@:%.check=%)"; \
-		$(MANDOC) -Tlint -Wwarning $(@:%.check=%) )
+		@$(ECHO) "checking $(@:%.check=%)"; \
+		if $(EGREP) -q "^.TH" $(@:%.check=%); then \
+		$(MANDOC) -Tlint -Werror $(@:%.check=%); \
+		else; \
+		$(MANDOC) -Tlint -Wwarning $(@:%.check=%); \
+		fi
 
 $(MANLINKS):
 		$(RM) $@; $(SYMLINK) $(LINKSRC) $@
