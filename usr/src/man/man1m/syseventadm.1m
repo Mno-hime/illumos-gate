@@ -286,8 +286,8 @@ since the registry is maintained on \fB$ALTROOT\fR.
 .sp
 .in +2
 .nf
-# syseventadm add -R \$ALTROOT -v MYCO -c EC_ENV -s ESC_ENV_TEMP \e
-     /opt/MYCOenv/bin/ec_env_temp \e$class \e$subclass \e$pathname
+# syseventadm add -R $ALTROOT -v MYCO -c EC_ENV -s ESC_ENV_TEMP \e
+     /opt/MYCOenv/bin/ec_env_temp ${class} ${subclass} ${pathname}
 .fi
 .in -2
 .sp
@@ -306,8 +306,8 @@ The following example removes the event handler added in Example 1.
 .sp
 .in +2
 .nf
-# syseventadm remove -R \$ALTROOT -v MYCO -c EC_ENV -s ESC_ENV_TEMP \e
-     /opt/MYCOenv/bin/ec_env_temp \${class} \${subclass} \${pathname}
+# syseventadm remove -R $ALTROOT -v MYCO -c EC_ENV -s ESC_ENV_TEMP \e
+     /opt/MYCOenv/bin/ec_env_temp ${class} ${subclass} ${pathname}
 .fi
 .in -2
 .sp
@@ -329,7 +329,7 @@ The following example lists all event handlers for events of class
 .nf
 # syseventadm list -v MYCO -c EC_ENV -s ESC_ENV_TEMP \e
      vendor=MYCO class=EC_ENV subclass=ESC_ENV_TEMP \e
-     /opt/MYCOenv/bin/ec_env_temp \e${class} \e${subclass} \e${pathname}
+     /opt/MYCOenv/bin/ec_env_temp ${class} ${subclass} ${pathname}
 .fi
 .in -2
 .sp
