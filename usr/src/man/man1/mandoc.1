@@ -291,7 +291,7 @@ Equations rendered from
 blocks use MathML.
 .Pp
 The
-.Pa mandoc.css
+.Pa /usr/share/mandoc/mandoc.css
 file documents style-sheet classes available for customising output.
 If a style-sheet is not specified with
 .Fl O Cm style ,
@@ -623,10 +623,10 @@ To page manuals to the terminal:
 .Dl $ mandoc -l mandoc.1 man.1 apropos.1 makewhatis.8
 .Pp
 To produce HTML manuals with
-.Pa mandoc.css
+.Pa /usr/share/mandoc/mandoc.css
 as the style-sheet:
 .Pp
-.Dl $ mandoc \-T html -Ostyle=mandoc.css mdoc.5 \*(Gt mdoc.5.html
+.Dl $ mandoc \-T html -Ostyle=/usr/share/mandoc/mandoc.css mdoc.5 \*(Gt mdoc.5.html
 .Pp
 To check over a large set of manuals:
 .Pp
